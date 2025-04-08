@@ -2,55 +2,42 @@ import time
 
 class Env:
     
-    def __init__(self, a = 0, d = 0, s = 0, r = 0, g = .5):
-        self.a_phase = a
-        self.d_phase = d
-        self.s_level = s
-        self.r_phase = r
-        self.gain = g
+    def __init__(self, a, d, s, r):
+        self.a_t = a
+        self.d_t = d
+        self.s_l = s
+        self.r_t = r
+        self.d_m = (s - 1)/d
+        #self.r_m = 0
+        #self.r_m = (self.s_l - note.last_gain)/self.r_t
+        #print(self.d_m)
         
-        self.level = 0
-        self.p_start_time = 0.0
-        self.r_start_time = 0.0
-        self.pressed_time = 0.0
-        self.released_time = 0.0
+    def apply(self, note):
+        gain = 0
         
-    def apply(self, pressed):
-
-        if pressed:
-            self.pressed_time = time.time() - self.p_start_time
-            self.r_start_time = time.time()
-            self.released_time = 0
-            
+        #get time
+        time_note_pressed = time.time() - note.time_set    
+        
+        if note.pressed:
             #attack
-            if self.pressed_time <= self.a_phase:
-                self.level = (self.pressed_time / self.a_phase) * self.gain
+            if time_note_pressed <= self.a_t:
+                gain = time_note_pressed/self.a_t
             
             #decay
-            elif self.pressed_time <= self.a_phase + self.d_phase:
-                self.level = self.gain - (self.pressed_time - self.a_phase) / self.d_phase * (self.gain - (self.gain * self.s_level))
-            
+            elif time_note_pressed <= self.a_t + self.d_t:
+                gain = self.d_m * (time_note_pressed - self.a_t) + 1
+                
             #sustain
-            elif self.pressed_time > self.a_phase + self.d_phase:
-                self.level = self.s_level * self.gain
-                
-                
-
-        else:
-            self.released_time = time.time() - self.r_start_time
-            self.p_start_time = time.time()
-            self.pressed_time = 0
-            
-            fraction = self.level * self.gain
-            
-            if self.level > 0.001 and self.r_phase > 0:
-                self.level = (self.r_phase * fraction - self.released_time) / (
-                            self.r_phase * fraction) * self.level
             else:
-                self.level
-    
+                gain = self.s_l
             
-        
-        
-        return self.level
+            #set release slope and last gain
+            note.last_gain = gain
+            note.r_m = (0 - note.last_gain)/self.r_t
+            
+            #release    
+        else:
+            gain = note.r_m * (time_note_pressed/self.r_t) + note.last_gain
+           
+        return gain
         

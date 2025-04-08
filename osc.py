@@ -6,6 +6,6 @@ class Osc:
         self
         
     def generate_wf(self, amp, freq, t_values):
-        sine_wave = (amp * np.sin(2 * np.pi * freq * t_values)).astype(np.int16)
+        sine_wave = amp * np.sin(2 * np.pi * freq * t_values)
         return sine_wave
     
