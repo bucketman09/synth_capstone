@@ -1,6 +1,6 @@
 class Note:
     
-    def __init__(self, value, velocity, time_set, pressed, last_gain = 0, r_m = 0):
+    def __init__(self, value, velocity, time_set, pressed, channel, last_gain = 0, r_m = 0):
         self.value = value
         self.velocity = velocity
         self.time_set = time_set

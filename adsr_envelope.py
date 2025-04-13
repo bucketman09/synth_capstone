@@ -1,5 +1,3 @@
-import time
-
 class Env:
     
     def __init__(self, a, d, s, r):
@@ -8,15 +6,12 @@ class Env:
         self.s_l = s
         self.r_t = r
         self.d_m = (s - 1)/d
-        #self.r_m = 0
-        #self.r_m = (self.s_l - note.last_gain)/self.r_t
-        #print(self.d_m)
         
-    def apply(self, note):
+    def apply(self, note, current_time):
         gain = 0
         
         #get time
-        time_note_pressed = time.time() - note.time_set    
+        time_note_pressed = current_time - note.time_set
         
         if note.pressed:
             #attack

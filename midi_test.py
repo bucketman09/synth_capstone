@@ -1,4 +1,3 @@
-import time
 import rtmidi
 import pyaudio
 import numpy as np
@@ -7,7 +6,7 @@ from note import Note
 from adsr_envelope import Env
 from osc import Osc
 
-adsr = Env(.2,.5,.5,.5)
+adsr = Env(.5,.5,.5,1)
 midi_in = rtmidi.MidiIn()
 
 print(midi_in.get_ports())
@@ -17,7 +16,7 @@ CHUNK = 256
 amp = 32767
 freq = 440
 
-osc = Osc(0)
+osc = Osc()
 
 p = pyaudio.PyAudio()
 
@@ -58,31 +57,24 @@ if midi_in.is_port_open():
                 for note in notes:
                     if note.value == note_value:
                         note.pressed = False
-                        note.time_set = time.time()
-                        
-            #if note_velocity == 0:
-            #    for note in notes[:]:
-            #        if note[0] == note_value:
-            #            notes.remove(note)      
-                        
+                        note.time_set = t/RATE     
             else:
-                note = Note(note_value, note_velocity,time.time(),True,0)
+                note = Note(note_value, note_velocity,t/RATE,channel,True,0)
                 notes.append(note)
-                #print(len(notes))
         
         t_values = (np.arange(CHUNK) + t) / RATE
-        
-        #iterate through current notes and add the wave forms together
+        #print(len(notes))
+        #iterate through current notes apply filters and add the wave forms together
         wave = np.zeros(CHUNK)
         for note in notes:
-            gain = adsr.apply(note)
+            gain = adsr.apply(note,t/RATE)
             if gain < 0:
                 notes.remove(note)
             else:
                 freq = 440 * 2 ** ((note.value - 69)/12)
                 amp = int(32767 * (note.velocity / 127.0)) * gain
                 
-                wave += osc.generate_wf(amp, freq, t_values)
+                wave += osc.generate_wf(0, amp, freq, t_values)
                 
         
         #normalize amp
