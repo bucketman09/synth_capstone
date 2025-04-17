@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(0,"libs")
+
 import rtmidi
 import pyaudio
 import numpy as np
@@ -17,6 +20,7 @@ amp = 32767
 freq = 440
 
 osc = Osc()
+num_aud_osc = 1
 
 p = pyaudio.PyAudio()
 
@@ -79,7 +83,7 @@ if midi_in.is_port_open():
         
         #normalize amp
         if len(notes) != 0: 
-            wave = wave / len(notes)
+            wave = wave / (len(notes) * num_aud_osc)
             
         wave = wave.astype(np.int16)
         

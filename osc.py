@@ -9,6 +9,7 @@ class Osc:
         if wave_type == 0:
             wave = amp * np.sin(2 * np.pi * freq * t_values)
         elif wave_type == 1:
-            self
+            wave = amp * (np.abs(np.sin(2 * np.pi * freq * t_values))/(np.sin(2 * np.pi * freq * t_values)))
+            
         return wave
     
