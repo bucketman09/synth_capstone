@@ -1,5 +1,4 @@
 import rtmidi
-#from note import Note
 
 midi_in = rtmidi.MidiIn()
 
