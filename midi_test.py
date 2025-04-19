@@ -1,11 +1,11 @@
 import rtmidi
-from note import Note
+#from note import Note
 
 midi_in = rtmidi.MidiIn()
 
 print(midi_in.get_ports())
 
-midi_device = input("Select device (Starting index 0)")
+midi_device = int(input("Select device (Starting index 0)"))
 
 try:
     midi_in.open_port(midi_device)
