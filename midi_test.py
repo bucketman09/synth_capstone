@@ -1,5 +1,5 @@
-import sys
-sys.path.insert(0,"libs")
+#import sys
+#sys.path.insert(0,"libs")
 
 import rtmidi
 import pyaudio
@@ -57,6 +57,7 @@ if midi_in.is_port_open():
             #print(channel)
             note_value = msg[1]
             note_velocity = msg[2]
+            print(note_value)
             if note_velocity == 0:
                 for note in notes:
                     if note.value == note_value:
