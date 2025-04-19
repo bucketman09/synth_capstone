@@ -25,8 +25,10 @@ stream = p.open(format=pyaudio.paInt16, channels=1, rate = RATE, input=False, ou
 
 pressed = False
 
+midi_device = int(input("Select device (Starting index 0)"))
+
 try:
-    midi_in.open_port(0)
+    midi_in.open_port(midi_device)
 except Exception as e:
     print("no midi instruments detected")
 
