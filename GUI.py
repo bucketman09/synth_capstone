@@ -3,7 +3,7 @@ from luma.core.render import canvas
 from luma.oled.device import ssd1306, ssd1325, ssd1331, sh1106
 import numpy as np
 
-class GUI
+class GUI:
     def __init__ (self, CHUNK, AMP):
         self.chunk = CHUNK
         self.s_w = 128
