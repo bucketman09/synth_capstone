@@ -15,9 +15,7 @@ class GUI:
         self.device = ssd1306(serial, rotate=0)
         
     def draw_wave(self, wave):
-        #x_r = 256/128
-        #y_r = 32/amp
-        screen = np.zeros(chunk)
+        screen = np.zeros(self.chunk)
         
         for i in range(len(screen)):
             screen[i] = (wave[i] + wave[int(i + self.x_r)])/2
