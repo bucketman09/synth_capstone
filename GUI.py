@@ -17,7 +17,7 @@ class GUI:
     def draw_wave(self, wave):
         screen = np.zeros(self.chunk)
         
-        for i in range(len(screen)):
+        for i in range(len(screen) - 1):
             screen[i] = (wave[i] + wave[int(i + self.x_r)])/2
             screen[i] = (screen[i] * self.y_r) + 32
            
