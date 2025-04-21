@@ -24,7 +24,7 @@ class GUI:
             new_y = (wave[i] + wave[int(i + self.x_r)])/2
             graph.append((i, int(((new_y * self.y_r) + 32))))
             
-        print(graph)
+        #print(graph)
            
         with canvas(self.device) as draw:
                 draw.point(graph, fill="white")

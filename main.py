@@ -1,5 +1,5 @@
 import rtmidi
-#import pyaudio
+import pyaudio
 import numpy as np
 
 from note import Note
@@ -7,8 +7,6 @@ from adsr_envelope import Env
 from osc import Osc
 from GUI import GUI
 from osc import Osc
-
-
 
 adsr = Env(.5,.5,.5,1)
 midi_in = rtmidi.MidiIn()
@@ -24,9 +22,9 @@ gui = GUI(CHUNK,amp)
 osc = Osc()
 num_aud_osc = 1
 
-#p = pyaudio.PyAudio()
+p = pyaudio.PyAudio()
 
-#stream = p.open(format=pyaudio.paInt16, channels=1, rate = RATE, input=False, output=True, frames_per_buffer=CHUNK)
+stream = p.open(format=pyaudio.paInt16, channels=1, rate = RATE, input=False, output=True, frames_per_buffer=CHUNK)
 
 pressed = False
 
@@ -92,7 +90,7 @@ if midi_in.is_port_open():
             
         wave = wave.astype(np.int16)
         
-        #stream.write(wave.tobytes())
+        stream.write(wave.tobytes())
         
         #prevent excesive t size
         #if np.all(wave == 0):
@@ -100,7 +98,7 @@ if midi_in.is_port_open():
             
         t += CHUNK
                    
-#stream.stop_stream()
-#stream.close()
-#p.terminate()
+stream.stop_stream()
+stream.close()
+p.terminate()
         
