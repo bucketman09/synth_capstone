@@ -1,6 +1,6 @@
 from luma.core.interface.serial import i2c
 from luma.core.render import canvas
-from luma.oled.device import ssd1306, ssd1325, ssd1331, sh1106
+from luma.oled.device import ssd1306#, ssd1325, ssd1331, sh1106
 import numpy as np
 
 class GUI:
@@ -8,10 +8,10 @@ class GUI:
         self.chunk = CHUNK
         self.s_w = 128
         self.s_h = 64
-        self.x_r = (CHUNK/s_w)
-        self.y_r = ((s_h/2) / AMP)
+        self.x_r = (CHUNK/self.s_w)
+        self.y_r = ((self.s_h/2) / AMP)
         
-        self.serial = i2c(port=1, address=0x3C)
+        serial = i2c(port=1, address=0x3C)
         self.device = ssd1306(serial, rotate=0)
         
     def draw_wave(self, wave):
