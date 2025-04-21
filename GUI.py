@@ -22,7 +22,7 @@ class GUI:
             screen[i] = (screen[i] * self.y_r) + 32
            
         with canvas(self.device) as draw:
-                draw.point(graph, fill="white")
+                draw.point(screen, fill="white")
             
         
       
