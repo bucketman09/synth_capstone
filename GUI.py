@@ -15,14 +15,19 @@ class GUI:
         self.device = ssd1306(serial, rotate=0)
         
     def draw_wave(self, wave):
-        screen = np.zeros(self.chunk)
+        graph = []
         
         for i in range(int(self.s_w - self.x_r)):
-            screen[i] = (wave[i] + wave[int(i + self.x_r)])/2
-            screen[i] = (screen[i] * self.y_r) + 32
+            #new_y = (wave[i] + wave[int(i + self.x_r)])/2
+            #graph.append(i, (new_y * (screen[i] * self.y_r) + 32))
+            
+            new_y = (wave[i] + wave[int(i + self.x_r)])/2
+            graph.append((i, int(((new_y * self.y_r) + 32))))
+            
+        print(graph)
            
         with canvas(self.device) as draw:
-                draw.point(screen, fill="white")
+                draw.point(graph, fill="white")
             
         
       
