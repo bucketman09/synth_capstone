@@ -11,6 +11,6 @@ for i in range(p.get_device_count()):
 RATE = 44100
 CHUNK = 256
 
-stream = p.open(format=pyaudio.paInt16, channels=1, rate = RATE, input=False, output=True, frames_per_buffer=CHUNK)
+#stream = p.open(format=pyaudio.paInt16, channels=1, rate = RATE, input=False, output=True, frames_per_buffer=CHUNK)
 
 print("succes?")

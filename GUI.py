@@ -13,6 +13,16 @@ class GUI:
         
         serial = i2c(port=1, address=0x3C)
         self.device = ssd1306(serial, rotate=0)
+    
+    def select_menu()
+        #allow user to scroll through options - adsr, osc
+        
+    
+    def osc_menu():
+        #allow user to select osc and change wave_form and level
+        
+    def adsr_menu
+        #allow user to select adsr levels
         
     def draw_wave(self, wave):
         graph = []

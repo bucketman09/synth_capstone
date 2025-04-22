@@ -2,13 +2,13 @@ import rtmidi
 import pyaudio
 import numpy as np
 
+#from machine import I2C, Pin
 from note import Note
 from adsr_envelope import Env
 from osc import Osc
-from GUI import GUI
-from osc import Osc
+#from GUI import GUI
 
-adsr = Env(.5,.5,.5,1)
+adsr = Env(.2,.5,.5,1)
 midi_in = rtmidi.MidiIn()
 
 print(midi_in.get_ports())
@@ -18,9 +18,10 @@ CHUNK = 256
 amp = 32767
 freq = 440
 
-gui = GUI(CHUNK,amp)
-osc = Osc()
-num_aud_osc = 1
+#gui = GUI(CHUNK,amp)
+
+oscillators = [Osc(0,1), Osc(1,.5)]
+#num_aud_osc = 1
 
 p = pyaudio.PyAudio()
 
@@ -29,6 +30,7 @@ stream = p.open(format=pyaudio.paInt16, channels=1, rate = RATE, input=False, ou
 pressed = False
 
 midi_device = int(input("Select device (Starting index 0)"))
+#num_aud_osc = int(input("Num of osc (starting at amt 1)"))
 
 try:
     midi_in.open_port(midi_device)
@@ -69,24 +71,27 @@ if midi_in.is_port_open():
                 notes.append(note)
         
         t_values = (np.arange(CHUNK) + t) / RATE
-        #print(len(notes))
-        #iterate through current notes apply filters and add the wave forms together
+        
+        #iterate through current notes apply filters and oscs and add the wave forms together
         wave = np.zeros(CHUNK)
         for note in notes:
+            #if note.channel == 0x9 or 0x8:
             gain = adsr.apply(note,t/RATE)
             if gain < 0:
-                notes.remove(note)
+                note.velocity = -1
+                #notes.remove(note)
             else:
                 freq = 440 * 2 ** ((note.value - 69)/12)
                 amp = int(32767 * (note.velocity / 127.0)) * gain
                 
-                wave += osc.generate_wf(0, amp, freq, t_values)
-                
-        gui.draw_wave(wave)
+            for osc in oscillators:
+                wave += osc.generate_wf(amp, freq, t_values)
+        
+        #gui.draw_wave(wave)
         
         #normalize amp
         if len(notes) != 0: 
-            wave = wave / (len(notes) * num_aud_osc)
+            wave = wave / (len(notes) * len(oscillators))
             
         wave = wave.astype(np.int16)
         
@@ -97,7 +102,11 @@ if midi_in.is_port_open():
         #    t = 0
             
         t += CHUNK
-                   
+        
+        for note in notes:
+            if note.velocity == -1:
+                notes.remove(note)
+                
 stream.stop_stream()
 stream.close()
 p.terminate()
