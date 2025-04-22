@@ -21,6 +21,11 @@ import numpy as np
 RATE = 44100
 CHUNK = 256
 t=0
+
+
+print(sd.query_devices())
+device_index = int(input("select devices (starting at index 0)"))
+sd.default.device = device_index
 stream = sd.OutputStream(samplerate = RATE, blocksize = CHUNK, channels = 1, dtype = 'int16')
 stream.start()
 
@@ -28,6 +33,7 @@ while True:
     t_values = (np.arange(CHUNK) + t) / RATE
     wave = 32767 * np.sin(2 * np.pi * 440 * t_values)
     wave = wave.astype(np.int16)
+    
 
     stream.write(wave)
     t += CHUNK
