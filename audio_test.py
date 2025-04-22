@@ -15,6 +15,7 @@ stream = p.open(format=pyaudio.paInt32, channels=2, rate = RATE, output=True, ou
 
 print("succes?")
 """
+import pyaudio
 import sounddevice as sd
 import numpy as np
 
@@ -22,12 +23,19 @@ RATE = 44100
 CHUNK = 256
 t=0
 
+p = pyaudio.PyAudio()
 
-print(sd.query_devices())
+for i in range(p.get_device_count()):
+    info = p.get_device_info_by_index(i)
+    print(f"{i}: {info['name']} - Output Channels: {info['maxOutputChannels']}")
 device_index = int(input("select devices (starting at index 0)"))
-sd.default.device = device_index
-stream = sd.OutputStream(samplerate = RATE, blocksize = CHUNK, channels = 1, dtype = 'int16')
-stream.start()
+stream = p.open(format=pyaudio.paInt16, channels=1, rate = RATE, input=False, output=True, frames_per_buffer=CHUNK, output_device_index = device_index)
+
+#print(sd.query_devices())
+#device_index = int(input("select devices (starting at index 0)"))
+#sd.default.device = device_index
+#stream = sd.OutputStream(samplerate = RATE, blocksize = CHUNK, channels = 1, dtype = 'int16')
+#stream.start()
 
 while True:
     t_values = (np.arange(CHUNK) + t) / RATE
