@@ -1,5 +1,6 @@
 import rtmidi
 import pyaudio
+import sounddevice as sd
 import numpy as np
 
 #from machine import I2C, Pin
@@ -23,9 +24,11 @@ freq = 440
 oscillators = [Osc(0,1), Osc(1,.5)]
 #num_aud_osc = 1
 
-p = pyaudio.PyAudio()
+stream = sd.OutputStream(samplerate = RATE, blocksize = CHUNK, channels = 1, dtype = 'int16')
+stream.start()
 
-stream = p.open(format=pyaudio.paInt16, channels=1, rate = RATE, input=False, output=True, frames_per_buffer=CHUNK)
+#p = pyaudio.PyAudio()
+#stream = p.open(format=pyaudio.paInt16, channels=1, rate = RATE, input=False, output=True, frames_per_buffer=CHUNK)
 
 pressed = False
 
@@ -95,7 +98,7 @@ if midi_in.is_port_open():
             
         wave = wave.astype(np.int16)
         
-        stream.write(wave.tobytes())
+        stream.write(wave)
         
         #prevent excesive t size
         #if np.all(wave == 0):
@@ -107,7 +110,8 @@ if midi_in.is_port_open():
             if note.velocity == -1:
                 notes.remove(note)
                 
-stream.stop_stream()
+#stream.stop_stream()
+stream.stop()
 stream.close()
-p.terminate()
+#p.terminate()
         
