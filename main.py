@@ -12,17 +12,21 @@ from osc import Osc
 adsr = Env(.2,.5,.5,1)
 midi_in = rtmidi.MidiIn()
 
-print(midi_in.get_ports())
-
 RATE = 44100
 CHUNK = 256
 amp = 32767
 freq = 440
 
+#screen_bools
+
+select_menu_bool = False
+osc_menu_bool = False
+adsr_menu_bool = False
+draw_wave_bool = True
+
 #gui = GUI(CHUNK,amp)
 
 oscillators = [Osc(0,1), Osc(1,.5)]
-#num_aud_osc = 1
 
 print(sd.query_devices())
 device_index = int(input("select audio device (starting at index 0)"))
@@ -42,8 +46,7 @@ stream.start()
 #stream = p.open(format=pyaudio.paInt16, channels=2, rate = RATE, input=False,
 #                output=True, frames_per_buffer=CHUNK, output_device_index = device_index)
 
-pressed = False
-
+print(midi_in.get_ports())
 midi_device = int(input("Select midi device (Starting index 0)"))
 #num_aud_osc = int(input("Num of osc (starting at amt 1)"))
 
@@ -55,7 +58,8 @@ except Exception as e:
 
 if midi_in.is_port_open():
     print("port open")
-        
+    
+    #pressed = False
     note_value = 0
     note_velocity = 0
     
@@ -66,6 +70,15 @@ if midi_in.is_port_open():
     notes = []
     
     while True:
+        """
+        if select_menu_bool:
+            print("select menu")
+        elif osc_menu_bool:
+            print("osc menu")
+        elif adsr_menu_bool:
+            print("adsr menu")
+            """
+        
         #get latest midi
         msg_and_t = midi_in.get_message()
         
@@ -101,8 +114,9 @@ if midi_in.is_port_open():
                 
             for osc in oscillators:
                 wave += osc.generate_wf(amp, freq, t_values)
-        
-        #gui.draw_wave(wave)
+                
+        #if draw_wave_bool: 
+            #gui.draw_wave(wave)
         
         #normalize amp
         if len(notes) != 0: 
@@ -126,4 +140,3 @@ if midi_in.is_port_open():
 stream.stop()
 stream.close()
 #p.terminate()
-        

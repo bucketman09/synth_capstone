@@ -1,7 +1,7 @@
 from luma.core.interface.serial import i2c
 from luma.core.render import canvas
 from luma.oled.device import ssd1306#, ssd1325, ssd1331, sh1106
-import numpy as np
+#import numpy as np
 
 class GUI:
     def __init__ (self, CHUNK, AMP):
@@ -13,16 +13,21 @@ class GUI:
         
         serial = i2c(port=1, address=0x3C)
         self.device = ssd1306(serial, rotate=0)
-    
-    def select_menu()
-        #allow user to scroll through options - adsr, osc
         
-    
+    #allow user to scroll through options - adsr, osc
+    def select_menu():
+        with canvas(self.device) as draw:
+            draw.text("select menu")
+        
+    #allow user to select osc and change wave_form and level
     def osc_menu():
-        #allow user to select osc and change wave_form and level
-        
-    def adsr_menu
-        #allow user to select adsr levels
+        with canvas(self.device) as draw:
+            draw.text("osc menu ")
+            
+    #allow user to select adsr levels    
+    def adsr_menu():
+        with canvas(self.device) as draw:
+            draw.text("adsr menu")
         
     def draw_wave(self, wave):
         graph = []
