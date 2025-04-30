@@ -4,6 +4,7 @@ import sounddevice as sd
 import numpy as np
 
 #from machine import I2C, Pin
+from gpiozero import RotaryEncoder, Button
 from note import Note
 from adsr_envelope import Env
 from osc import Osc
