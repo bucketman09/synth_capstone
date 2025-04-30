@@ -1,4 +1,5 @@
 from gpiozero import Button, RotaryEncoder
+import signal as s
 
 
 rotor = RotaryEncoder(10,9)
@@ -14,4 +15,5 @@ rotor.when_rotated = rotated
     
 rotor_btn.when_pressed = pressed
 
-while True:
+s.pause()
+    
