@@ -40,8 +40,8 @@ class InputController:
         self.gui.settings_menu()
             
 
-    def pressed(self,set_selected):
-        set_selected(True)
+    def pressed(self):
+        self.set_selected(True)
         
                 
                 
