@@ -14,7 +14,7 @@ class GUI:
         serial = i2c(port=1, address=0x3C)
         self.device = ssd1306(serial, rotate=0)
         
-        self.menu_index = 0 # 0 - settings_menu, 1 - draw_wave, 2 - select_menu, 3 - adsr_menu, 4 - osc_menu
+        self.menu_index = 0 # 0 - audio settings_menu,1 - midi settings_menu midi, 2 - draw_wave, 3 - select_menu, 4 - adsr_menu, 5 - osc_menu
         self.s_index = 0
         self.options = []
     
@@ -22,7 +22,10 @@ class GUI:
     def settings_menu(self):
         print(self.s_index)
         with canvas(self.device) as draw:
-            option = str(self.options[self.s_index]['name'])
+            if self.menu_index == 0:
+                option = str(self.options[self.s_index]['name'])
+            elif self.menu_index == 1
+                option = str(self.options[self.s_index])
             draw.text((0,32), option, fill=255)
             
     #allow user to scroll through options - adsr, osc

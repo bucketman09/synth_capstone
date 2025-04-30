@@ -17,7 +17,7 @@ class Synth:
         self.CHUNK = CHUNK
         
         """
-        self.menu_index = 0 # 0 - settings_menu, 1 - draw_wave, 2 - select_menu, 3 - adsr_menu, 4 - osc_menu
+        self.menu_index = 0 # 0 - settings, 1 - draw_wave, 2 - select_menu, 3 - adsr_menu, 4 - osc_menu
         self.s_index = 0
         self.max_index = 0
         """
