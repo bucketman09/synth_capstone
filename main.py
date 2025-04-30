@@ -20,53 +20,10 @@ adsr = Env(.2,.5,.5,1)
 midi_in = rtmidi.MidiIn()
 gui = GUI(CHUNK,amp)
 oscillators = [Osc(0,1), Osc(1,.5)]
+inp = input_controller(gui)
 
-inp = input_controller()
-
-"""
-select_menu_bool = False
-osc_menu_bool = False
-adsr_menu_bool = False
-draw_wave_bool = True
-"""
-"""
-rotor = RotaryEncoder(10,9,wrap=True)
-rotor_btn = Button(11)
-menu_index = 0 #00 - settings_menu, 1 - draw_wave, 2 - select_menu, 3 - adsr_menu, 4 - osc_menu
-s_index = 0
-s_max_index = 5
-
-def left():
-    global menu_index
-    match menu_index:
-        case 0:
-            s_index -=
-            if s_index < 0:
-                s_index = 0
-            
-        
-    
-def right():
-    global menu_index
-    match menu_index:
-        case 0:
-            s_index +=
-            if s_max_index > 0:
-                s_index = s_max_index
-
-def pressed():
-    global menu_index
-    match menu_index:
-        case 0:
-            menu_index = 1
-    print("pressed")
-    
-rotor.when_rotated_clockwise = right
-rotor.when_rotated_counter_clockwise = left
-rotor_btn.when_pressed = pressed
-"""
-
-gui.settings_menu(s_index, sd.query_devices(), midi_in.get_ports(),True)
+gui.set_options = sd.query_devices()
+gui.settings_menu()
 
 print(sd.query_devices())
 device_index = int(input("select audio device (starting at index 0)"))

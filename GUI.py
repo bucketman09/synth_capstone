@@ -13,25 +13,28 @@ class GUI:
         
         serial = i2c(port=1, address=0x3C)
         self.device = ssd1306(serial, rotate=0)
+        
+        self.menu_index = 0 # 0 - settings_menu, 1 - draw_wave, 2 - select_menu, 3 - adsr_menu, 4 - osc_menu
+        self.s_index = 0
+        self.options = []
     
     #select audio and midi device - runs on start
-    def settings_menu(s_index, sd, md, startup):
-        if startup:
-            with canvas(self.device) as draw:
-                draw.text("settings menu")
+    def settings_menu(self):
+        with canvas(self.device) as draw:
+            draw.text(self.options[self.s_index])
             
     #allow user to scroll through options - adsr, osc
-    def select_menu(option):
+    def select_menu(self):
         with canvas(self.device) as draw:
             draw.text("select menu")
         
     #allow user to select osc and change wave_form and level
-    def osc_menu():
+    def osc_menu(self):
         with canvas(self.device) as draw:
             draw.text("osc menu ")
             
     #allow user to select adsr levels    
-    def adsr_menu():
+    def adsr_menu(self):
         with canvas(self.device) as draw:
             draw.text("adsr menu")
         
@@ -48,7 +51,7 @@ class GUI:
         #print(graph)
            
         with canvas(self.device) as draw:
-                draw.point(graph, fill="white")
+            draw.point(graph, fill="white")
             
         
       

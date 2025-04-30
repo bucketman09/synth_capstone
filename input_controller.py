@@ -1,40 +1,47 @@
+from GUI import GUI
 import gpiozero
+#from synth import Synth
 
-class InputController
-
-    def __init__(self):
+class InputController:
+    def __init__(self, gui):
         self.rotor = RotaryEncoder(10,9,wrap=True)
         self.rotor_btn = Button(11)
-        self.menu_index = 0 #00 - settings_menu, 1 - draw_wave, 2 - select_menu, 3 - adsr_menu, 4 - osc_menu
-        self.s_index = 0
-        self.s_max_index = 5
+        #self.synth.s_index = 0
+        #self.s_max_index = 5
+        
+        self.gui = gui
+        #self.synth = synth
         
         self.rotor.when_rotated_clockwise = self.right
         self.rotor.when_rotated_counter_clockwise = self.left
         self.rotor_btn.when_pressed = self.pressed
 
     def left(self):
-        self.menu_index
-        match self.menu_index:
-            case 0:
-                self.s_index -=
-                if self.s_index < 0:
-                    self.s_index = 0
-                
-            
+        print("left")
+        if self.gui.s_index == 0:
+            self.rotate_selection(True)
         
     def right(self):
-        self.menu_index
-        match self.menu_index:
-            case 0:
-                self.s_index +=
-                if self.s_max_index > 0:
-                    self.s_index = self.s_max_index
+        print("right")
+        if self.gui.s_index == 0:
+            self.rotate_selection(False)
+                    
+    def rotate_selection(self,is_left):
+        if is_left:
+            self.gui.s_index = self.gui.s_index - 1
+            if self.gui.s_index < 0:
+                self.gui.s_index = 0
+        else:
+            self.gui.s_index = self.gui.s_index + 1
+            if self.gui.s_index > len(self.gui.options):
+                self.gui.s_index = len(self.gui.options)
+                
+        self.gui.setting_menu(self)
+            
 
     def pressed(self):
-        self.menu_index
-        match self.menu_index:
-            case 0:
-                self.menu_index = 1
         print("pressed")
+        
+                
+                
         
