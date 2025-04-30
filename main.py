@@ -9,6 +9,7 @@ from note import Note
 from adsr_envelope import Env
 from osc import Osc
 from GUI import GUI
+from input_controller import InputController
 
 RATE = 44100
 CHUNK = 256
