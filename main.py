@@ -8,26 +8,43 @@ from gpiozero import RotaryEncoder, Button
 from note import Note
 from adsr_envelope import Env
 from osc import Osc
-#from GUI import GUI
+from GUI import GUI
 
 adsr = Env(.2,.5,.5,1)
 midi_in = rtmidi.MidiIn()
+gui = GUI(CHUNK,amp)
+oscillators = [Osc(0,1), Osc(1,.5)]
 
 RATE = 44100
 CHUNK = 256
 amp = 32767
 freq = 440
-
-#screen_bools
-
+"""
 select_menu_bool = False
 osc_menu_bool = False
 adsr_menu_bool = False
 draw_wave_bool = True
+"""
 
-#gui = GUI(CHUNK,amp)
+rotor = RotaryEncoder(10,9,wrap=True)
+rotor_btn = Button(11)
+menu_index = 0 #0 - draw_wave, 1 - select_menu, 2 - adsr_menu, 3 - osc_menu
 
-oscillators = [Osc(0,1), Osc(1,.5)]
+def left():
+    print("left")
+    
+def right():
+    print("right")
+
+def pressed():
+    match menu_index:
+        case 0:
+            menu_index = 1
+    print("pressed")
+    
+rotor.when_rotated_clockwise = right
+rotor.when_rotated_counter_clockwise = left
+rotor_btn.when_pressed = pressed
 
 print(sd.query_devices())
 device_index = int(input("select audio device (starting at index 0)"))
@@ -70,7 +87,15 @@ if midi_in.is_port_open():
     
     notes = []
     
+    wave =  []
+    
     while True:
+        match menu_index:
+            case 0:
+                gui.draw_wave(wave)
+            case 1:
+                gui.select_menu()
+                
         """
         if select_menu_bool:
             print("select menu")
