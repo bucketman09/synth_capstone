@@ -42,6 +42,7 @@ class InputController:
 
     def pressed(self):
         self.not_selected()
+        self.gui.menu_index = self.gui.menu_index + 1
         
                 
                 
