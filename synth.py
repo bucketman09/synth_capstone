@@ -38,6 +38,7 @@ class Synth:
         if manual:
             #load audio device options into gui array
             self.gui.options = sd.query_devices()
+            print(sd.query_devices())
             #draw initial menu
             self.gui.settings_menu()
             #hold program untill button press
@@ -48,6 +49,7 @@ class Synth:
             
             #load midi ports into options array
             self.gui.options = midi_in.get_ports()
+            print(midi_in.get_ports())
             #draw initial menu
             self.gui.settings_menu()
             #hold

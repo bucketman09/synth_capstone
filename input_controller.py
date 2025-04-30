@@ -36,7 +36,7 @@ class InputController:
             if self.gui.s_index > len(self.gui.options):
                 self.gui.s_index = len(self.gui.options)
                 
-        self.gui.settings_menu(self)
+        self.gui.settings_menu()
             
 
     def pressed(self):
