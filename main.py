@@ -88,7 +88,7 @@ if midi_in.is_port_open():
     
     notes = []
     
-    wave =  []
+    wave = np.zeros(CHUNK)
     
     while True:
         match menu_index:
