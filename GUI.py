@@ -24,7 +24,7 @@ class GUI:
         with canvas(self.device) as draw:
             if self.menu_index == 0:
                 option = str(self.options[self.s_index]['name'])
-            elif self.menu_index == 1
+            elif self.menu_index == 1:
                 option = str(self.options[self.s_index])
             draw.text((0,32), option, fill=255)
             
