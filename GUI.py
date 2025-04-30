@@ -22,7 +22,7 @@ class GUI:
     def settings_menu(self):
         with canvas(self.device) as draw:
             option = str(self.options[self.s_index]['name'])
-            draw.text((64,32), option)
+            draw.text((64,32), option, fill=255)
             
     #allow user to scroll through options - adsr, osc
     def select_menu(self):
