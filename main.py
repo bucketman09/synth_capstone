@@ -10,15 +10,16 @@ from adsr_envelope import Env
 from osc import Osc
 from GUI import GUI
 
+RATE = 44100
+CHUNK = 256
+amp = 32767
+freq = 440
+
 adsr = Env(.2,.5,.5,1)
 midi_in = rtmidi.MidiIn()
 gui = GUI(CHUNK,amp)
 oscillators = [Osc(0,1), Osc(1,.5)]
 
-RATE = 44100
-CHUNK = 256
-amp = 32767
-freq = 440
 """
 select_menu_bool = False
 osc_menu_bool = False
