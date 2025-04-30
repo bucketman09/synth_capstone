@@ -65,7 +65,7 @@ rotor.when_rotated_counter_clockwise = left
 rotor_btn.when_pressed = pressed
 """
 
-gui.settings_meun(s_index, sd.query_devices(), midi_in.get_ports(),True)
+gui.settings_menu(s_index, sd.query_devices(), midi_in.get_ports(),True)
 
 print(sd.query_devices())
 device_index = int(input("select audio device (starting at index 0)"))
