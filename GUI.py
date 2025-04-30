@@ -21,7 +21,7 @@ class GUI:
     #select audio and midi device - runs on start
     def settings_menu(self):
         with canvas(self.device) as draw:
-            draw.text(self.options[self.s_index])
+            draw.text(self.options[self.s_index]['name'])
             
     #allow user to scroll through options - adsr, osc
     def select_menu(self):
