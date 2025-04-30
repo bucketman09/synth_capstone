@@ -22,11 +22,14 @@ class GUI:
     def settings_menu(self):
         print(self.s_index)
         with canvas(self.device) as draw:
-            if self.menu_index == 0:
-                option = str(self.options[self.s_index]['name'])
-            elif self.menu_index == 1:
-                option = str(self.options[self.s_index])
-            draw.text((0,32), option, fill=255)
+            if len(self.options) > 0:
+                if self.menu_index == 0:
+                    option = str(self.options[self.s_index]['name'])
+                elif self.menu_index == 1:
+                    option = str(self.options[self.s_index])
+                draw.text((0,32), option, fill=255)
+            else:
+                draw.text((0,32), "no devices", fill=255)
             
     #allow user to scroll through options - adsr, osc
     def select_menu(self):
