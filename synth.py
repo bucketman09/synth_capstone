@@ -22,17 +22,22 @@ class Synth:
         self.max_index = 0
         """
         
+        self.midi_in = rtmidi.MidiIn()
         self.gui = GUI(RATE, CHUNK)
         self.input_cont = InputController(self.gui)
         self.adsr = Env(.2,.5,.5,1)
         self.midi_in = rtmidi.MidiIn()
         self.oscillators = [Osc(0,1), Osc(1,.5)]
         
+        self.selected = False
         self.setup(True)
         
         self.stream.start()
         
         self.synth_loop()
+        
+    def set_selected(selected):
+        self.selected = selected
         
     def setup(self,manual):
         if manual:
@@ -42,24 +47,30 @@ class Synth:
             #draw initial menu
             self.gui.settings_menu()
             #hold program untill button press
-            self.input_cont.rotor_btn.wait_for_press()
+            while self.selected = False:
+                pass
+            
             #assign default sound device to current selection index 
             sd.default.device = self.gui.s_index
             self.stream = sd.OutputStream(samplerate = self.RATE, blocksize = self.CHUNK, channels = 1, dtype = 'int16')
             
+            self.selected == False
             #load midi ports into options array
             self.gui.options = midi_in.get_ports()
-            print(midi_in.get_ports())
+            print(self.midi_in.get_ports())
             #draw initial menu
             self.gui.settings_menu()
             #hold
-            self.input_cont.rotor_btn.wait_for_press()
+            while self.selected == False:
+                pass
+            
             #set midi device to s_index
-            midi_device_index = self.gui.s_index
-            midi_in.open_port(midi_device_index)
+            self.midi_device_index = self.gui.s_index
+            self.midi_in.open_port(midi_device_index)
+            self.selected = True
         
     def synth_loop(self):
-        if midi_in.is_port_open():
+        if self.midi_in.is_port_open():
             print("port open")
             note_value = 0
             note_velocity = 0
@@ -71,7 +82,7 @@ class Synth:
             
             while True:
                 #get latest midi
-                msg_and_t = midi_in.get_message()
+                msg_and_t = self.midi_in.get_message()
                 
                 #if there is a message get the values
                 if msg_and_t:

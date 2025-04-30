@@ -3,9 +3,10 @@ from gpiozero import RotaryEncoder, Button
 #from synth import Synth
 
 class InputController:
-    def __init__(self, gui):
+    def __init__(self, gui, set_selected):
         self.rotor = RotaryEncoder(10,9,wrap=True)
         self.rotor_btn = Button(11)
+        self.set_selected = set_selected
         #self.synth.s_index = 0
         #self.s_max_index = 5
         
@@ -39,8 +40,8 @@ class InputController:
         self.gui.settings_menu()
             
 
-    def pressed(self):
-        print("pressed")
+    def pressed(self,set_selected):
+        set_selected(True)
         
                 
                 
