@@ -1,5 +1,5 @@
 from GUI import GUI
-import gpiozero
+from gpiozero import RotaryEncoder, Button
 #from synth import Synth
 
 class InputController:
