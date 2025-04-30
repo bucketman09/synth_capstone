@@ -56,7 +56,7 @@ class Synth:
             
             self.selected == False
             #load midi ports into options array
-            self.gui.options = midi_in.get_ports()
+            self.gui.options = self.midi_in.get_ports()
             print(self.midi_in.get_ports())
             #draw initial menu
             self.gui.settings_menu()
