@@ -32,12 +32,15 @@ rotor_btn = Button(11)
 menu_index = 0 #0 - draw_wave, 1 - select_menu, 2 - adsr_menu, 3 - osc_menu
 
 def left():
+    global menu_index
     print("left")
     
 def right():
+    global menu_index
     print("right")
 
 def pressed():
+    global menu_index
     match menu_index:
         case 0:
             menu_index = 1
