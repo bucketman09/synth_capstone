@@ -32,7 +32,7 @@ class GUI:
     def draw_wave(self, wave):
         graph = []
         
-        if wave.length != 0:
+        if not wave:
             for i in range(int(self.s_w - self.x_r)):
                 #new_y = (wave[i] + wave[int(i + self.x_r)])/2
                 #graph.append(i, (new_y * (screen[i] * self.y_r) + 32))
