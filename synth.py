@@ -65,7 +65,7 @@ class Synth:
                 pass
             
             #set midi device to s_index
-            self.midi_device_index = self.gui.s_index
+            midi_device_index = self.gui.s_index
             self.midi_in.open_port(midi_device_index)
             self.selected = True
         
