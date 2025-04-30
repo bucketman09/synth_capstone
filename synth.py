@@ -47,7 +47,7 @@ class Synth:
             #draw initial menu
             self.gui.settings_menu()
             #hold program untill button press
-            while self.selected = False:
+            while self.selected == False:
                 pass
             
             #assign default sound device to current selection index 
