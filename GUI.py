@@ -13,9 +13,14 @@ class GUI:
         
         serial = i2c(port=1, address=0x3C)
         self.device = ssd1306(serial, rotate=0)
-        
+    
+    #select audio and midi device - runs on start
+    def settings_menu(s_index, sd, md, startup)
+        with canvas(self.device) as draw:
+            draw.text("settings menu")
+            
     #allow user to scroll through options - adsr, osc
-    def select_menu():
+    def select_menu(option):
         with canvas(self.device) as draw:
             draw.text("select menu")
         

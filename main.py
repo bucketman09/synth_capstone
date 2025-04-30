@@ -20,24 +20,38 @@ midi_in = rtmidi.MidiIn()
 gui = GUI(CHUNK,amp)
 oscillators = [Osc(0,1), Osc(1,.5)]
 
+inp = input_controller()
+
 """
 select_menu_bool = False
 osc_menu_bool = False
 adsr_menu_bool = False
 draw_wave_bool = True
 """
-
+"""
 rotor = RotaryEncoder(10,9,wrap=True)
 rotor_btn = Button(11)
-menu_index = 0 #0 - draw_wave, 1 - select_menu, 2 - adsr_menu, 3 - osc_menu
+menu_index = 0 #00 - settings_menu, 1 - draw_wave, 2 - select_menu, 3 - adsr_menu, 4 - osc_menu
+s_index = 0
+s_max_index = 5
 
 def left():
     global menu_index
-    print("left")
+    match menu_index:
+        case 0:
+            s_index -=
+            if s_index < 0:
+                s_index = 0
+            
+        
     
 def right():
     global menu_index
-    print("right")
+    match menu_index:
+        case 0:
+            s_index +=
+            if s_max_index > 0:
+                s_index = s_max_index
 
 def pressed():
     global menu_index
@@ -49,6 +63,9 @@ def pressed():
 rotor.when_rotated_clockwise = right
 rotor.when_rotated_counter_clockwise = left
 rotor_btn.when_pressed = pressed
+"""
+
+gui.settings_meun(s_index, sd.query_devices(), midi_in.get_ports(),True)
 
 print(sd.query_devices())
 device_index = int(input("select audio device (starting at index 0)"))
@@ -96,9 +113,9 @@ if midi_in.is_port_open():
     while True:
         match menu_index:
             case 0:
-                gui.draw_wave(wave)
-            case 1:
                 gui.select_menu()
+            case 1:
+                gui.draw_wave(wave)
                 
         """
         if select_menu_bool:
