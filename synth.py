@@ -126,7 +126,7 @@ class Synth:
                 wave = wave.astype(np.int16)        
                 self.stream.write(wave)
                 
-                if self.draw_wave:
+                if self.draw_wave_bool:
                     self.gui.draw_wave(wave)
                 
                 #prevent excesive t size
