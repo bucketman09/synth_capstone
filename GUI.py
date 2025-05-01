@@ -33,8 +33,9 @@ class GUI:
             
     #allow user to scroll through options - adsr, osc
     def select_menu(self):
+        options = ["adsr envelops", "oscillators"]
         with canvas(self.device) as draw:
-            draw.text("select menu")
+            draw.text((0,32), options[self.s_index], fill=255)
         
     #allow user to select osc and change wave_form and level
     def osc_menu(self):
