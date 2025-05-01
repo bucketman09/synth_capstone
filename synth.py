@@ -116,17 +116,16 @@ class Synth:
                         
                     for osc in self.oscillators:
                         wave += osc.generate_wf(amp, freq, t_values)
-                        
-                #if draw_wave_bool: 
-                    #gui.draw_wave(wave)
+                
+                if self.draw_wave_bool: 
+                    self.gui.draw_wave(wave)
                 
                 #normalize amp
                 if len(notes) != 0: 
                     wave = wave / (len(notes) * len(self.oscillators))
-                 
-                #if self.draw_wave_bool:
-                self.gui.draw_wave(wave)
                     
+            
+                     
                 wave = wave.astype(np.int16)        
                 self.stream.write(wave)
                 
