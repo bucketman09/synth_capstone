@@ -56,8 +56,7 @@ class Synth:
             self.stream = sd.OutputStream(samplerate = self.RATE, blocksize = self.CHUNK, channels = 1, dtype = 'int16')
             
             #reset bool
-            self.selected == False
-            print(self.selected)
+            self.selected = False
             #load midi ports into options array
             self.gui.options = self.midi_in.get_ports()
             print(self.midi_in.get_ports())
@@ -71,7 +70,9 @@ class Synth:
             #set midi device to s_index
             midi_device_index = self.gui.s_index
             self.midi_in.open_port(midi_device_index)
-            self.selected = True
+            
+            #reset for later use
+            self.selected = False
         
     def synth_loop(self):
         if self.midi_in.is_port_open():
