@@ -3,12 +3,11 @@ from gpiozero import RotaryEncoder, Button
 #from synth import Synth
 
 class InputController:
-    def __init__(self, gui, not_selected, selected, draw_wave):
+    def __init__(self, gui, not_selected, not_draw_wave):
         self.rotor = RotaryEncoder(10,9,wrap=True)
         self.rotor_btn = Button(11, hold_time = 1)
         self.not_selected = not_selected
-        self.selected = selected
-        self.draw_wave = draw_wave
+        self.not_draw_wave = not_draw_wave
         #self.synth.s_index = 0
         #self.s_max_index = 5
         
@@ -46,13 +45,15 @@ class InputController:
 
     def pressed(self):
         if self.gui.menu_index <= 1: #setup menus
-            self.selected = False
-            #self.not_selected()
+            self.not_selected()
             self.gui.menu_index = self.gui.menu_index + 1
-        elif self.gui.menu_index == 2: #draw menu
-            self.draw_wave = False
+            
+        elif self.gui.menu_index == 2: #draw
+            #stop draw
+            self.not_draw_wave()
             self.gui.menu_index = self.gui.menu_index + 1
             self.gui.select_menu()
+            
         elif self.gui.menu_index == 3:
             pass
             
