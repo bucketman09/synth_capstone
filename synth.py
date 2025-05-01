@@ -124,8 +124,8 @@ class Synth:
                 if len(notes) != 0: 
                     wave = wave / (len(notes) * len(self.oscillators))
                  
-                if self.draw_wave_bool:
-                    self.gui.draw_wave(wave)
+                #if self.draw_wave_bool:
+                self.gui.draw_wave(wave)
                     
                 wave = wave.astype(np.int16)        
                 self.stream.write(wave)
