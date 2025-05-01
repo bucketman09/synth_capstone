@@ -63,6 +63,7 @@ class Synth:
             #draw initial menu
             self.gui.settings_menu()
             #hold
+            print(self.selected)
             while self.selected == False:
                 pass
             
