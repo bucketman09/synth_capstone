@@ -19,12 +19,12 @@ class InputController:
 
     def left(self):
         print("left")
-        if self.gui.s_index == 0:
+        if self.gui.menu_index <= 1:
             self.rotate_selection(True)
         
     def right(self):
         print("right")
-        if self.gui.s_index == 0:
+        if self.gui.menu_index <= 1:
             self.rotate_selection(False)
                     
     def rotate_selection(self,is_left):
