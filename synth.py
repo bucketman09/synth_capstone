@@ -18,7 +18,7 @@ class Synth:
         
         self.midi_in = rtmidi.MidiIn()
         self.gui = GUI(RATE, CHUNK)
-        self.input_cont = InputController(self.gui,self.not_selected,selected,draw_wave)
+        self.input_cont = InputController(self.gui,self.not_selected,self.selected,self.draw_wave)
         self.adsr = Env(.2,.5,.5,1)
         self.midi_in = rtmidi.MidiIn()
         self.oscillators = [Osc(0,1), Osc(1,.5)]
