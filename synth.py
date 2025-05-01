@@ -13,6 +13,9 @@ class Synth:
         self.RATE = RATE
         self.CHUNK = CHUNK
         
+        self.selected = False
+        self.draw_wave = True
+        
         self.midi_in = rtmidi.MidiIn()
         self.gui = GUI(RATE, CHUNK)
         self.input_cont = InputController(self.gui,self.not_selected,selected,draw_wave)
@@ -20,7 +23,7 @@ class Synth:
         self.midi_in = rtmidi.MidiIn()
         self.oscillators = [Osc(0,1), Osc(1,.5)]
         
-        self.selected = False
+        
         self.setup(True)
         
         self.stream.start()
