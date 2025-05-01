@@ -54,6 +54,7 @@ class Synth:
             sd.default.device = self.gui.s_index
             self.stream = sd.OutputStream(samplerate = self.RATE, blocksize = self.CHUNK, channels = 1, dtype = 'int16')
             
+            #reset bool
             self.selected == False
             #load midi ports into options array
             self.gui.options = self.midi_in.get_ports()
