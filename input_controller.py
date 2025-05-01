@@ -30,7 +30,6 @@ class InputController:
             self.rotate_selection(False)
                     
     def rotate_selection(self,is_left):
-        print(len(self.gui.options))
         if is_left:
             self.gui.s_index = self.gui.s_index - 1
             if self.gui.s_index < 0:

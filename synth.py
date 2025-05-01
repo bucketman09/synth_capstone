@@ -33,6 +33,7 @@ class Synth:
         self.selected = not self.selected
         
     def not_draw_wave(self):
+        print("not_draw_wave")
         self.draw_wave_bool = not self.draw_wave_bool
         
     def setup(self,manual):
