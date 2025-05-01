@@ -57,6 +57,7 @@ class Synth:
             
             #reset bool
             self.selected == False
+            print(self.selected)
             #load midi ports into options array
             self.gui.options = self.midi_in.get_ports()
             print(self.midi_in.get_ports())
