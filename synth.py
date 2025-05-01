@@ -37,6 +37,7 @@ class Synth:
         self.synth_loop()
         
     def not_selected(self):
+        print("not_selected")
         self.selected = not self.selected
         
     def setup(self,manual):
