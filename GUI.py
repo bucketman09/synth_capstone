@@ -39,11 +39,13 @@ class GUI:
         
     #allow user to select osc and change wave_form and level
     def osc_menu(self):
+        options = ["level", "waveform"]
         with canvas(self.device) as draw:
             draw.text("osc menu ")
             
     #allow user to select adsr levels    
     def adsr_menu(self):
+        options = ["a","s","d","r"]
         with canvas(self.device) as draw:
             draw.text("adsr menu")
         

@@ -71,7 +71,7 @@ class Synth:
         
     def synth_loop(self):
         if self.midi_in.is_port_open():
-            print("port open")
+            print("synth_loop_start")
             note_value = 0
             note_velocity = 0
             
@@ -123,12 +123,13 @@ class Synth:
                 #normalize amp
                 if len(notes) != 0: 
                     wave = wave / (len(notes) * len(self.oscillators))
+                 
+                if self.draw_wave_bool:
+                    self.gui.draw_wave(wave)
                     
                 wave = wave.astype(np.int16)        
                 self.stream.write(wave)
                 
-                if self.draw_wave_bool:
-                    self.gui.draw_wave(wave)
                 
                 #prevent excesive t size
                 #if np.all(wave == 0):
