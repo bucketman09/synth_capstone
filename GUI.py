@@ -22,10 +22,13 @@ class GUI:
     def settings_menu(self):
         print(self.s_index)
         with canvas(self.device) as draw:
+            #if there are options continue, if not say no devices
             if len(self.options) > 0:
                 if self.menu_index == 0:
+                    draw.text((0,0), "audio devices", fill =255)
                     option = str(self.options[self.s_index]['name'])
                 elif self.menu_index == 1:
+                    draw.text((0,0), "midi devices", fill =255)
                     option = str(self.options[self.s_index])
                 draw.text((0,32), option, fill=255)
             else:
@@ -35,6 +38,7 @@ class GUI:
     def select_menu(self):
         options = ["adsr envelops", "oscillators"]
         with canvas(self.device) as draw:
+            draw.text((0,0), "options", fill = 255)
             draw.text((0,32), options[self.s_index], fill=255)
         
     #allow user to select osc and change wave_form and level

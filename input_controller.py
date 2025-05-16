@@ -1,5 +1,5 @@
 from GUI import GUI
-from gpiozero import RotaryEncoder, Button
+from gpiozero import RotaryEncoder, Button, DistanceSensor
 #from synth import Synth
 
 class InputController:
@@ -18,6 +18,9 @@ class InputController:
         self.rotor.when_rotated_counter_clockwise = self.left
         self.rotor_btn.when_pressed = self.pressed
         self.rotor_btn.when_held = self.held
+        
+        self.sensor = DistanceSensor(trigger = 14, echo = 15)
+        self.sensor.when_in_range = self.in_range
 
     def left(self):
         #print("left")
@@ -45,20 +48,37 @@ class InputController:
     def pressed(self):
         if self.gui.menu_index <= 1: #setup menus
             self.not_selected()
+            self.gui.s_index = 0
             self.gui.menu_index = self.gui.menu_index + 1
             
         elif self.gui.menu_index == 2: #draw
             #stop draw
             self.not_draw_wave()
-            self.gui.menu_index = self.gui.menu_index + 1
+            self.gui.s_index = 0
             self.gui.select_menu()
             
-        elif self.gui.menu_index == 3:
+        elif self.gui.menu_index == 3: #options
+            if self.gui.s_index == 1: #adsr
+                self.gui.menu_index = 4
+                self.gui.adsr_menu()
+            elif self.gui.s_index == 2: #osc
+                self.gui.menu_index = 5
+                self.gui.adsr_menu()
+                
+        elif self.gui.menu_index == 4:
             pass
+        
+        #elif self.gui.menu_index == 5
+        
             
+            
+            
+          
     def held(self):
         pass
         
+    def in_range(self):
+        print(self.sensor.distance)
         
                 
                 
